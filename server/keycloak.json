@@ -1,0 +1,9 @@
+{
+  "realm": "digitalrig",
+  "auth-server-url": "http://wipro-devops.eastus.cloudapp.azure.com:5050/auth",
+  "ssl-required": "none",
+  "resource": "digitalrig",
+  "public-client": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}

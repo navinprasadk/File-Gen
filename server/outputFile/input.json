@@ -1,0 +1,19 @@
+{
+    "pipeline" : {
+        "agent":{"name":"any"},
+        "environment": {
+            "color" : "blue"
+        },
+        "workspace":{"path":""},
+        "poll_scm":{"Frequency in seconds":0},
+        "git_clone":{"URL":"www.github.com/xyz/mnl","Branch":"master","Credentials":"","Token ID":""},
+        "git_push":{"URL":"","Branch":"","Credentials":"","Token ID":""},
+        "maven":{"a":""},
+        "ant":{"a":""},
+        "gradle":{"a":""},
+        "docker":{"image":"nodejs","label":"","args":""},
+        "junit":{"a":""},
+        "email":{"To":"xyz@outlook.com","From":"abc@outlook.com","Subject":"test","Body":"sample one"},
+        "slack":{"Space name":"","Credentials":"","Token ID":""}
+    }
+}

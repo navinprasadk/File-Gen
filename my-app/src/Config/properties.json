@@ -1,0 +1,54 @@
+ { 
+   
+    "agent": {
+      "name": ""
+      },
+    "workspace": {
+      "path": ""
+        },
+    "poll_scm": {
+      "Frequency in seconds": 0 
+    },
+    "git_clone": {
+      "URL": "",
+      "Branch": "master",
+      "Credentials": "",
+      "Token ID": ""
+    },
+    "git_push": {
+      "URL": "",
+      "Branch": "",
+      "Credentials": "",
+      "Token ID": "" 
+    },
+    "maven": {
+      "a": ""
+    },
+    "ant": {
+      "a": ""
+    },
+    "gradle": {
+      "a": ""
+    },
+    "docker": {
+      "image": "",
+      "label": "",
+      "args": ""
+    },
+    "junit": {
+      "a": ""
+    },
+    "email": {
+      "To": "",
+      "From": "",
+      "Subject": "",
+      "Body": ""
+    },
+    "slack": {
+      "Space name": "",
+      "Credentials": "",
+      "Token ID": ""
+    }
+   
+  }
+

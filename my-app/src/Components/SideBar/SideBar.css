@@ -1,0 +1,30 @@
+.ui.accordion, .ui.accordion .accordion {
+margin-top: 5%;
+}
+
+.SideBar_title{
+font-weight: 700;
+margin: 10% 0 0 10%;
+font-size: 120%;
+letter-spacing: 1px;
+text-transform: uppercase;
+
+}
+
+.SideBar_Fragment {
+ margin: 50%;   
+}
+
+.ui.column.grid>[class*="three wide"].column, .ui.grid>.column.row>[class*="three wide"].column, .ui.grid>.row>[class*="three wide"].column, .ui.grid>[class*="three wide"].column {
+/* background-color: #F4F5F7; */
+
+}
+
+.ui.grid>.row{
+  padding-top: 0%;
+}
+
+.ui.grid>.row>.column {
+  padding-top: 2%;
+  ;
+}

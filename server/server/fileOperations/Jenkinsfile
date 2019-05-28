@@ -1,0 +1,1 @@
+pipeline{agent {"name":3}stages{pipeline{agent {"name":3}stages{pipeline{agent {"name":3}stages{pipeline{agent {"name":3}stages{pipeline{agent {"name":3}stages{pipeline{agent {"name":3}stages{}}}}}}}}}}}}
