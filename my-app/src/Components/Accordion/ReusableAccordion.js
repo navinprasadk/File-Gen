@@ -55,8 +55,7 @@ export default class ReusableAccordion extends Component {
                             >
                            
                              <Button fluid className='Accordion_option_style' key={optionIndex}>
-                                {option}
-                                <Icon name='info circle' size='small'  style={{float: 'right'}}/>
+                                {option}<Icon name='info circle' size='small'  style={{float: 'right'}}/>
                                 
                               </Button>
                               </div>

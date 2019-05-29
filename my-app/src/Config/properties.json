@@ -1,25 +1,14 @@
- { 
-   
+ {  
     "agent": {
       "name": ""
       },
     "workspace": {
       "path": ""
         },
-    "poll_scm": {
-      "Frequency in seconds": 0 
-    },
     "git_clone": {
       "URL": "",
       "Branch": "master",
-      "Credentials": "",
-      "Token ID": ""
-    },
-    "git_push": {
-      "URL": "",
-      "Branch": "",
-      "Credentials": "",
-      "Token ID": "" 
+      "Credentials": ""
     },
     "maven": {
       "a": ""
@@ -54,7 +43,6 @@
     },
     "execute_powershell": {
       "command": ""
-    }    
-   
+    }      
   }
 

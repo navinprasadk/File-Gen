@@ -4,6 +4,7 @@ const groovyScript = require("./groovyScript.js")
 
 const wrapper = (json,successCB,errorCB) => {
   let content = fs.readFileSync(path.join(__dirname, "Jenkinsfile"));
+  console.log("CONTENTS IN JENKINSFILE",content.toString())
 
   let result = "pipeline{"
     .concat("agent " + JSON.stringify(json.pipeline.agent))
@@ -18,26 +19,37 @@ const wrapper = (json,successCB,errorCB) => {
 
 const generateJenkinsfile = (json,successCB,errorCB) => {
 
-var STAGE = "stage{steps{}}";
+var STAGE = "stage(\"$$NAME$$\"){steps{}}";
 
 Object.keys(json.pipeline).map((key, index) => {
   if (key === "stages") {
     json.pipeline.stages.map((stage, stageindex) => {
-      Object.keys(stage).map((stageKey, stageindex) => {
-        if (stageKey === "git_clone") {
+
+      console.log("STAGE",stage);
+      console.log("STAGE INDEX",stageindex);
+      Object.keys(stage.steps).map((stepsKey, stageindex) => {
+
+        if (stepsKey === "git_clone") {
+          console.log("FOUND STAGE", stepsKey);
           let str = groovyScript.git_clone(
-            stage[stageKey].URL,
-            stage[stageKey].Credentials,
-            stage[stageKey].Branch
+            stage.steps[stepsKey].URL,
+            stage.steps[stepsKey].Credentials,
+            stage.steps[stepsKey].Branch
           );
-          STAGE = [
-            STAGE.slice(0, STAGE.length - 2),
+          let stage1 = STAGE
+          stage1 = [
+            stage1.slice(0, stage1.length - 2),
             str,
-            STAGE.slice(STAGE.length - 2)
+            stage1.slice(stage1.length - 2)
           ].join("");
 
-          fs.writeFileSync(path.join(__dirname, "Jenkinsfile"), STAGE);
+          stage1 = stage1.replace("$$NAME$$",stage.stageName )
+          console.log("CREATED STAGES",stage1);
+          fs.appendFileSync(path.join(__dirname, "Jenkinsfile"), stage1);
 
+        }
+        else {
+          console.log("NOT FOUND STAGES", stageKey)
         }
       });
     });

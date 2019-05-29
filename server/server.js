@@ -2,30 +2,11 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const port = process.env.PORT || 5050;
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const connectflash = require("connect-flash");
-const morgan = require("morgan");
 const fs = require('fs');
-const serverConfig = require("./serverConfig.js");
-//keycloak
-const Keycloak = require("keycloak-connect");
-const session = require("express-session");
-var memoryStore = new session.MemoryStore();
-var keycloak = new Keycloak({
-  store: memoryStore
-});
-//session
-app.use(
-  session({
-    secret: "thisShouldBeLongAndSecret",
-    resave: false,
-    saveUninitialized: true,
-    store: memoryStore
-  })
-);
 
-app.use(keycloak.middleware());
+
+
 
 // use middlewares
 app.use(bodyParser.json());
@@ -35,7 +16,7 @@ app.use(
   })
 );
 
-app.use(connectflash());
+
 
 app.use(function(req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*");
@@ -50,7 +31,7 @@ app.use(function(req, res, next) {
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // logger
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 // setup REST routes
 app.get("/", function(req, res) {

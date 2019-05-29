@@ -1,15 +1,15 @@
 const data = [
     {
         name:'Source Code Management',
-        options: ["Poll SCM","Git Clone","Git Push"]
+        options: ["Git Clone"]
+    },
+    {
+        name:'Scripts',
+        options: ["Execute Shell", "Execute Powershell"]
     },
     {
         name:'Build',
         options: ["Maven","Ant","Gradle"]
-    },
-    {
-        name:'Ship',
-        options: ["Docker"]
     },
     {
         name:'Test',
@@ -18,10 +18,7 @@ const data = [
     {
         name:'Integration',
         options:["Email","Slack"]
-    },
-    {
-        name:'Others',
-        options: ["Execute Shell", "Execute Powershell"]
-    }]
+    }
+   ]
 
 export default data;

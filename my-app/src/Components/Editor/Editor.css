@@ -18,9 +18,9 @@
 }
 
 .Editor_save_button{
- margin-top: 12% !important;
+ margin-top: 10% !important;
+  font-size: 90% !important;
  letter-spacing: 3px;
- font-size: 90% !important;
  font-weight: 800 !important ;   
  padding: -10% !important;
  box-shadow: 3px 3px 11px 0 #9a9a9a !important;
