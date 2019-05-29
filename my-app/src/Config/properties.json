@@ -48,7 +48,13 @@
       "Space name": "",
       "Credentials": "",
       "Token ID": ""
-    }
+    },
+    "execute_shell": {
+      "command": ""
+    },
+    "execute_powershell": {
+      "command": ""
+    }    
    
   }
 

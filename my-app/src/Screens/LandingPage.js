@@ -41,17 +41,17 @@ export default class LandingPage extends Component {
         let { entireJSON} = this.state; 
         if(Object.keys(entireJSON).length) {
             entireJSON.pipeline["environment"] = this.state.savedData;
-            entireJSON.pipeline["agent"]["name"] = this.state.agentName.length ? this.state.agentName.length : "any";
+            entireJSON.pipeline["agent"]["name"] = this.state.agentName.length ? this.state.agentName : "any";
             entireJSON.pipeline["stages"]=[{stageName:"",steps:[]}];
         } else {
             entireJSON["pipeline"] = {};
             entireJSON.pipeline["environment"] = this.state.savedData;
             console.log("entireJSON",entireJSON);
             if(entireJSON.pipeline.agent != undefined) {
-                entireJSON.pipeline["agent"].name=  this.state.agentName.length ? this.state.agentName.length : "any";
+                entireJSON.pipeline["agent"].name=  this.state.agentName.length ? this.state.agentName : "any";
             } else {
                 entireJSON.pipeline["agent"] = {};
-                entireJSON.pipeline["agent"].name=  this.state.agentName.length ? this.state.agentName.length : "any";
+                entireJSON.pipeline["agent"].name=  this.state.agentName.length ? this.state.agentName : "any";
             }
             entireJSON.pipeline["stages"]=[{stageName:"",steps:[]}];
         }
@@ -145,7 +145,7 @@ export default class LandingPage extends Component {
                  <Form className="agent-form" style={{marginLeft:"25%",width: "50%", marginTop: "4%"}}>
                     <Form.Field>
                         <label style={{fontSize:'110%'}}>Agent</label>
-                        <input placeholder='Agent' defaultValue={agentName} onChange={(e) => {
+                        <input placeholder='Agent'  onChange={(e) => {
                             this.setState({
                                 agentName: e.target.value
                             })

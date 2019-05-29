@@ -21,7 +21,7 @@ const data = [
     },
     {
         name:'Others',
-        options: ["Environments", "agents"]
+        options: ["Execute Shell", "Execute Powershell"]
     }]
 
 export default data;

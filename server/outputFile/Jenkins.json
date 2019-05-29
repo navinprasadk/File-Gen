@@ -1,1 +1,1 @@
-{"pipeline":{"environment":{},"agent":{"name":3},"stages":[{"stageName":"","steps":[]}]}}
+{"pipeline":{"environment":{},"agent":{"name":"linux"},"stages":[{"stageName":"","steps":[]},{"stageName":"","steps":[]}]}}

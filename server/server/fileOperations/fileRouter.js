@@ -4,10 +4,9 @@ const path = require("path")
 let fileController = require("./fileOperations.js");
 
 router.post("/generate",(req,res) => {
-  console.log("GENETATING", req.body);
+  console.log("GENERATING", JSON.stringify(req.body));
     fileController.generateJenkinsfile(req.body, stages => {
       fileController.wrapper(req.body, result => {
-        
         res.download(path.join(__dirname, "Jenkinsfile"))
       })
     })

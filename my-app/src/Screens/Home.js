@@ -80,7 +80,21 @@ export default class Home extends Component {
             if(stages[stageNumber] == undefined){
                 stages.push({stageName:"",steps:[]});
             }
-            stages[stageNumber]["steps"][tools] = properties[tools];
+           
+            // let obj = {}
+            console.log(properties[tools]);
+            // obj.tool = properties[tools]
+
+stages.map((stage,stageindex) => {
+    console.log("StageIndex",stageindex,stageNumber);
+    if(stageindex === stageNumber)
+        stage.steps.push(properties[tools])
+    
+})
+
+            // stages[stageNumber]["steps"][tools] =  properties[tools]
+            console.log(stages[stageNumber]["steps"]);
+            // console.log
         })
 
         this.setState(
@@ -217,7 +231,7 @@ export default class Home extends Component {
                                 stages: [...this.state.stages,{stageName:"",steps:[]}]
                             })
                         }}/>
-                        <Button size='tiny' color='black' className='Editor_save_button' onClick={this.updateData}>Generate</Button>
+                        <center><Button size='tiny' color='black' className='Editor_save_button' onClick={this.updateData}>Generate</Button></center>
                     </div>
                          : null : null
                         

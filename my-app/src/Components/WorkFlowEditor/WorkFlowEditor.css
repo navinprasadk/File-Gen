@@ -56,6 +56,8 @@
 }
 .Empty_work_flow_editor_message{
     /* max-width: 80%;   */
+    margin-top:10% !important
+
 }
 
 .NonEmpty_work_flow_editor_item_wrapper{
@@ -63,9 +65,14 @@
     flex-direction: row;
     justify-content: space-between;
     width:65%;
+    margin-top: 3% !important;
     cursor: pointer;
-    /* box-shadow: 5px 10px 18px #d1d1d1; */
-    box-shadow: 5px 5px 15px 0 rgba(46, 61, 73, .2) !important; 
+    /*box-shadow: 5px 10px 18px #d1d1d1;
+    */box-shadow: 5px 5px 15px 0 rgba(46, 61, 73, .2) !important;
+    -webkit-border-radius:20%;
+    -moz-border-radius:20%;
+    -ms-border-radius:20%;
+    -o-border-radius:20%;
 }
 
 .NonEmpty_work_flow_editor_icon {
@@ -78,7 +85,6 @@
     font-size: 110%;
     font-weight: 500;
     margin: -1% !important;
-    
     letter-spacing: 1px;
 
 }

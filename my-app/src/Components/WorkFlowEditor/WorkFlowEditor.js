@@ -25,14 +25,16 @@ delete = (index, stageNumber) => {
                 <Icon className="remove-icon" name="remove circle" />
             </div>
             <Segment basic className='Work_flow_editor_segment_style'>
-            <Form className="agent-form" style={{marginLeft:"25%",width: "50%", marginTop: "4%"}}>
+            <Form className="agent-form" style={{width: "80%", marginTop: "4%"}}>
                     <Form.Field>
-                        <label style={{fontSize:'110%'}}>Stage Name</label>
+                        <span style={{display: "flex", justifyContent: "flex-start"}}>
+                        <label style={{paddingTop:'2%', fontSize:'110%', fontWeight:'500', width:'80%'}}> Stage Name</label>
                         <input placeholder='Stage Name'  
                         defaultValue={this.props.stageName}
                         onChange={(e) => {
                             this.props.handlestageNameChange(e, this.props.stageNumber);
                         }} />
+                        </span>
                     </Form.Field>
             </Form>
             <div>
