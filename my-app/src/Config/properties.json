@@ -10,14 +10,8 @@
       "Branch": "master",
       "Credentials": ""
     },
-    "maven": {
-      "a": ""
-    },
-    "ant": {
-      "a": ""
-    },
-    "gradle": {
-      "a": ""
+    "build_job": {
+      "jobname": ""
     },
     "docker": {
       "image": "",
@@ -39,6 +33,9 @@
       "Token ID": ""
     },
     "execute_shell": {
+      "command": ""
+    },
+    "execute_batch": {
       "command": ""
     },
     "execute_powershell": {

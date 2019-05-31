@@ -2,9 +2,9 @@ const fs = require('fs');
 const path = require("path");
 const groovyScript = require("./groovyScript.js")
 
-const wrapper = (json,successCB,errorCB) => {
+const wrapper = (json, successCB, errorCB) => {
   let content = fs.readFileSync(path.join(__dirname, "Jenkinsfile"));
-  console.log("CONTENTS IN JENKINSFILE",content.toString())
+  console.log("CONTENTS IN JENKINSFILE", content.toString())
 
   let result = "pipeline{"
     .concat("agent " + JSON.stringify(json.pipeline.agent))
@@ -17,65 +17,85 @@ const wrapper = (json,successCB,errorCB) => {
 
 };
 
-const generateJenkinsfile = (json,successCB,errorCB) => {
+const generateJenkinsfile = (json, successCB, errorCB) => {
 
-var STAGE = "stage(\"$$NAME$$\"){steps{}}";
+  fs.unlinkSync(path.join(__dirname, "Jenkinsfile"));
 
-Object.keys(json.pipeline).map((key, index) => {
-  if (key === "stages") {
-    json.pipeline.stages.map((stage, stageindex) => {
+  var STAGE = "stage(\"$$NAME$$\"){}";
 
-      console.log("STAGE",stage);
-      console.log("STAGE INDEX",stageindex);
-      Object.keys(stage.steps).map((stepsKey, stageindex) => {
+  Object.keys(json.pipeline).map((key, index) => {
+    let steps = "steps{}"
+    if (key === "stages") {
+      json.pipeline.stages.map((stage, stageindex) => {
+        let appendStr = "";
+        Object.keys(stage.steps).map((stepsKey, stageindex) => {
 
-        if (stepsKey === "git_clone") {
-          console.log("FOUND STAGE", stepsKey);
-          let str = groovyScript.git_clone(
-            stage.steps[stepsKey].URL,
-            stage.steps[stepsKey].Credentials,
-            stage.steps[stepsKey].Branch
-          );
-          let stage1 = STAGE
-          stage1 = [
-            stage1.slice(0, stage1.length - 2),
-            str,
-            stage1.slice(stage1.length - 2)
-          ].join("");
+          if (stepsKey === "git_clone") {
+            let str = groovyScript.git_clone(
+              stage.steps[stepsKey].URL,
+              stage.steps[stepsKey].Credentials,
+              stage.steps[stepsKey].Branch
+            );
+            appendStr += str + "\n";
+            console.log("Steps", steps);
+          } else if (stepsKey === 'execute_shell') {
+            let str = groovyScript.execute_shell(stage.steps[stepsKey].command);
+            appendStr += str;
 
-          stage1 = stage1.replace("$$NAME$$",stage.stageName )
-          console.log("CREATED STAGES",stage1);
-          fs.appendFileSync(path.join(__dirname, "Jenkinsfile"), stage1);
+          } else if (stepsKey === 'execute_batch') {
+            let str = groovyScript.execute_powershell(stage.steps[stepsKey].command);
+            appendStr += str;
+          } else if (stepsKey === 'execute_powershell') {
+            let str = groovyScript.execute_powershell(stage.steps[stepsKey].command);
+            appendStr += str;
 
-        }
-        else {
-          console.log("NOT FOUND STAGES", stageKey)
-        }
+          } else if (stepsKey === 'build_job') {
+            let str = groovyScript.build_job(stage.steps[stepsKey].jobname);
+            appendStr += str;
+          }
+        });
+        // appendStr += "}";
+        console.log('append str', appendStr);
+        console.log('steps haveeeee', steps);
+        let stage1 = STAGE
+        stage1 = [
+          steps.slice(0, stage1.length - 3),
+          appendStr,
+          steps.slice(stage1.length - 2)
+        ].join("");
+        console.log('stageeeeeeee', stage1);
+        stage1 = stage1.replace("$$NAME$$", stage.stageName)
+        fs.appendFileSync(path.join(__dirname, "Jenkinsfile"), stage1);
       });
-    });
-  }
-});
+    }
 
-successCB("success")
+
+  });
+
+  successCB("success")
 
 }
 
 
 const writeData = (req) => {
-        console.log("req",req);
-        console.log("inside write data");
-        fs.writeFileSync('../phraseFreqs.json', JSON.stringify(output))
-        .then(status => {
-          console.log("success");
-          return status;
-        })
-        .catch(err =>
-          res.status(404).json({
-            error: "Error in writing data"
-          })
-        );
-    }
+  console.log("req", req);
+  console.log("inside write data");
+  fs.writeFileSync('../phraseFreqs.json', JSON.stringify(output))
+    .then(status => {
+      console.log("success");
+      return status;
+    })
+    .catch(err =>
+      res.status(404).json({
+        error: "Error in writing data"
+      })
+    );
+}
 
 
 
-module.exports = { generateJenkinsfile,wrapper, writeData }
+module.exports = {
+  generateJenkinsfile,
+  wrapper,
+  writeData
+}

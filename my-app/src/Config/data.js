@@ -5,11 +5,11 @@ const data = [
     },
     {
         name:'Scripts',
-        options: ["Execute Shell", "Execute Powershell"]
+        options: ["Execute Shell", "Execute Batch", "Execute Powershell"]
     },
     {
         name:'Build',
-        options: ["Maven","Ant","Gradle"]
+        options: ["Build Job"]
     },
     {
         name:'Test',

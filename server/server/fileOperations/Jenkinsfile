@@ -1,1 +1,2 @@
-pipeline{agent {"name":"linux"}stages{pipeline{agent {"name":"linux"}stages{stage("Clone"){steps{git branch: 'master', credentialsId: '', url: 'https://github.com/navinprasadk/jenkins-metrics.git'}}stage("Duplicate"){steps{git branch: 'master', credentialsId: '', url: 'https://github.com/navinprasadk/jenkins-metrics.git'}}}}stage("Clone"){steps{git branch: 'master', credentialsId: '', url: 'https://github.com/navinprasadk/jenkins-metrics.git'}}stage("Duplicate"){steps{git branch: 'master', credentialsId: '', url: 'https://github.com/navinprasadk/jenkins-metrics.git'}}}}
+pipeline{agent "any"stages{steps{}git branch: 'master', credentialsId: '', url: 'bitbucket/navin'
+}}
