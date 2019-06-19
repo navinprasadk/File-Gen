@@ -8,6 +8,7 @@ import WorkFlowEditor from "./../Components/WorkFlowEditor/WorkFlowEditor";
 import Editor from "./../Components/Editor/Editor";
 import BlurredModal from "./../Components/Modal/BlurredModal";
 import Axios from "axios";
+
 export default class Home extends Component {
   state = {
     selectedTools: [],
@@ -26,24 +27,60 @@ export default class Home extends Component {
       dataSource: data
     });
     this.readData();
+    // this.download();
   };
 
   readData = () => {
     let context = this;
+
     Axios.get("/fileRead")
+
       .then(res => {
         context.setState({
           entireJSON: res.data
-          //   stages:
-          //     res.data.pipeline.stages != undefined
-          //       ? res.data.pipeline.stages
-          //       : [{}],
-          //   stageCount:
-          //     res.data.pipeline.stages != undefined
-          //       ? res.data.pipeline.stages.length
-          //       : 1
+
+          // stages:
+
+          // res.data.pipeline.stages != undefined
+
+          // ? res.data.pipeline.stages
+
+          // : [{}],
+
+          // stageCount:
+
+          // res.data.pipeline.stages != undefined
+
+          // ? res.data.pipeline.stages.length
+
+          // : 1
         });
       })
+
+      .catch(err => {
+        console.log("err", err);
+      });
+  };
+
+  download = () => {
+    Axios.post("/api/fileOperations/download", {
+      responseType: "blob"
+    })
+
+      .then(res => {
+        const filename = res.headers["content-disposition"].split(
+          "filename="
+        )[1];
+
+        let url = window.URL.createObjectURL(new Blob([res.data]));
+
+        let a = document.createElement("a");
+
+        a.href = url;
+        a.download = filename;
+        a.click();
+      })
+
       .catch(err => {
         console.log("err", err);
       });
@@ -54,6 +91,7 @@ export default class Home extends Component {
       {
         currentTool: ""
       },
+
       () => {
         this.setState({
           currentTool: toolName
@@ -86,17 +124,20 @@ export default class Home extends Component {
     let key = e.dataTransfer.getData("key");
     let optionIndex = e.dataTransfer.getData("optionIndex");
     let copy = [];
+
     console.log(
       stages[stageNumber] != undefined,
       Object.keys(stages[stageNumber]) != undefined,
       Object.keys(stages[stageNumber]["steps"]).length
     );
+
     if (
       stages[stageNumber] != undefined &&
       Object.keys(stages[stageNumber]) != undefined &&
       Object.keys(stages[stageNumber]["steps"]).length
     ) {
       copy.concat(selectedTools);
+
       copy.concat(Object.keys(stages[stageNumber]["steps"]));
     } else {
       copy = [];
@@ -104,10 +145,12 @@ export default class Home extends Component {
 
     if (copy.length === 0) {
       copy.push(dataSource[key].options[optionIndex]);
+
       currentTool = dataSource[key].options[optionIndex];
     } else {
       if (copy.indexOf(dataSource[key].options[optionIndex]) === -1) {
         copy.push(dataSource[key].options[optionIndex]);
+
         currentTool = dataSource[key].options[optionIndex];
       } else {
         alert("Component Already Exists");
@@ -118,19 +161,27 @@ export default class Home extends Component {
 
     copy.map(tool => {
       let tools = tool.toLowerCase().replace(" ", "_");
+
       if (stages[stageNumber] == undefined) {
-        stages.push({ stageName: "", steps: {} });
+        stages.push({
+          stageName: "",
+          steps: {}
+        });
       }
+
       console.log("stages", stages);
 
       let property = properties[tools];
+
       console.log(stages[stageNumber]["steps"][tools]);
+
       if (
         stages[stageNumber]["steps"] === undefined &&
         !Object.keys(stages[stageNumber]["steps"]).length
       ) {
         stages[stageNumber]["steps"] = {};
       }
+
       stages[stageNumber]["steps"][tools] = property;
 
       console.log("stages22222222", stages);
@@ -142,6 +193,7 @@ export default class Home extends Component {
         currentTool,
         stages
       },
+
       () => {
         console.log("stagessssss", this.state.stages);
       }
@@ -153,13 +205,17 @@ export default class Home extends Component {
       {
         stageName: e.target.value
       },
+
       () => {
         let { stages } = this.state;
+
         stages[number]["stageName"] = this.state.stageName;
+
         this.setState(
           {
             stages: stages
           },
+
           () => {
             // this.updateData();
           }
@@ -170,6 +226,7 @@ export default class Home extends Component {
 
   createStages = () => {
     let stageToBeDisplayed = [];
+
     let {
       stageCount,
       stages,
@@ -181,17 +238,28 @@ export default class Home extends Component {
     console.log("stagesss", JSON.stringify(stages));
 
     for (let i = 0; i < stageCount; i++) {
-      //   console.log(
-      //     "jhjkjkjkk",
-      //     activeStageNumber == 0 || stages.length,
-      //     stages[i] != undefined &&
-      //       Object.keys(stages[i]["steps"]).length &&
-      //       Object.keys(stages[i]["steps"]) != "0",
-      //     Object.keys(stages[i]["steps"]),
-      //     selectedTools,
-      //     selectedTools
-      //   );
+      // console.log(
+
+      // "jhjkjkjkk",
+
+      // activeStageNumber == 0 || stages.length,
+
+      // stages[i] != undefined &&
+
+      // Object.keys(stages[i]["steps"]).length &&
+
+      // Object.keys(stages[i]["steps"]) != "0",
+
+      // Object.keys(stages[i]["steps"]),
+
+      // selectedTools,
+
+      // selectedTools
+
+      // );
+
       console.log("ssdfsdfsdf", Object.keys(stages[i]["steps"]));
+
       stageToBeDisplayed.push(
         <div
           onDragOver={e => this.onDragOver(e)}
@@ -227,6 +295,7 @@ export default class Home extends Component {
         </div>
       );
     }
+
     return stageToBeDisplayed;
   };
 
@@ -234,9 +303,12 @@ export default class Home extends Component {
     let copy = [...this.state.selectedTools];
 
     copy.splice(index, 1);
+
     let { stages } = this.state;
     let keys = Object.keys(stages[stageNumber]["steps"]);
+
     delete stages[stageNumber]["steps"][keys[index]];
+
     this.setState(
       {
         selectedTools: copy,
@@ -244,6 +316,7 @@ export default class Home extends Component {
         currentTool: "",
         stageNumber: stageNumber
       },
+
       () => {
         // this.updateData();
         // this.createStages();
@@ -253,10 +326,14 @@ export default class Home extends Component {
 
   deleteStage = stageNumber => {
     let { stages } = this.state;
+
     console.log("stages", JSON.stringify(stages));
     console.log("stageNumber", stageNumber);
+
     stages.splice(stageNumber, 1);
+
     console.log("stages", JSON.stringify(stages));
+
     this.setState(
       {
         stages,
@@ -276,6 +353,7 @@ export default class Home extends Component {
     let context = this;
 
     console.log("sadd");
+
     Axios.post("/fileWrite", data)
       .then(res => {
         console.log("res", res);
@@ -288,11 +366,15 @@ export default class Home extends Component {
 
   generateData = data => {
     let context = this;
+
     Axios.post("/api/fileOperations/generate", data)
+
       .then(res => {
         console.log("res", res);
         context.readData();
+        context.download();
       })
+
       .catch(err => {
         console.log("err", err);
       });
@@ -305,12 +387,14 @@ export default class Home extends Component {
       stages[activeStageNumber]["steps"] != undefined
         ? stages[activeStageNumber]["steps"]
         : [];
+
     currentProp[currentTool] =
       currentProp[currentTool] != undefined
         ? Object.keys(currentProp[currentTool]).length
           ? currentProp[currentTool]
           : properties[currentTool]
         : properties[currentTool];
+
     currentProp[currentTool][key] = e.target.value;
 
     this.setState({
@@ -320,12 +404,15 @@ export default class Home extends Component {
 
   render() {
     console.log("stages", JSON.stringify(this.state.stages));
+
     return (
       <React.Fragment>
         <MenuBarTop />
+
         <Grid>
           <Grid.Row>
             {/* <BlurredModal/> */}
+
             <Grid.Column
               width={4}
               style={{
@@ -339,36 +426,46 @@ export default class Home extends Component {
 
             <Grid.Column
               width={7}
-              style={{ backgroundColor: "#f4f5f7", minHeight: "100vh" }}
+              style={{
+                backgroundColor: "#f4f5f7",
+                minHeight: "100vh"
+              }}
             >
               {this.state.stages != undefined && this.state.stages.length ? (
                 <div>
-                  <b className="Work_flow_editor_title">Work Flow </b>
+                  <b className="Work_flow_editor_title">Work Flow</b>
+
                   {this.createStages()}
                 </div>
               ) : (
                 <div>
-                  <center><Button
-                    size="SMALL"
-                    color="black"
-                    className="add_stage"
-                    onClick={() => {
-                      this.setState({
-                        stageCount: this.state.stageCount + 1,
-                        selectedTools: [],
-                        currentTool: "",
-                        stages: [
-                          ...this.state.stages,
-                          { stageName: "", steps: {} }
-                        ]
-                      });
-                    }}
-                    style={{marginTop:'5%'}}
-                  >
-                    ADD STAGE
-                  </Button></center>
+                  <center>
+                    <Button
+                      size="SMALL"
+                      color="black"
+                      className="add_stage"
+                      onClick={() => {
+                        this.setState({
+                          stageCount: this.state.stageCount + 1,
+                          selectedTools: [],
+                          currentTool: "",
+                          stages: [
+                            ...this.state.stages,
+
+                            { stageName: "", steps: {} }
+                          ]
+                        });
+                      }}
+                      style={{
+                        marginTop: "5%"
+                      }}
+                    >
+                      ADD STAGE
+                    </Button>
+                  </center>
                 </div>
               )}
+
               {this.state.stages.length ? (
                 Object.keys(
                   this.state.stages[this.state.stages.length - 1]["steps"]
@@ -379,7 +476,10 @@ export default class Home extends Component {
                     <Icon
                       name="add circle"
                       size="big"
-                      style={{ float: "right", marginTop: "5%" }}
+                      style={{
+                        float: "right",
+                        marginTop: "5%"
+                      }}
                       onClick={() => {
                         this.setState({
                           stageCount: this.state.stageCount + 1,
@@ -392,14 +492,17 @@ export default class Home extends Component {
                         });
                       }}
                     />
-                    <center><Button
-                      size="tiny"
-                      color="black"
-                      className="Editor_save_button"
-                      onClick={this.updateData}
-                    >
-                      Generate
-                    </Button></center>
+
+                    <center>
+                      <Button
+                        size="tiny"
+                        color="black"
+                        className="Editor_save_button"
+                        onClick={this.updateData}
+                      >
+                        Generate
+                      </Button>
+                    </center>
                   </div>
                 ) : null
               ) : null}

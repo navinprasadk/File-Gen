@@ -1,2 +1,10 @@
-pipeline{agent "any"stages{steps{}git branch: 'master', credentialsId: '', url: 'bitbucket/navin'
-}}
+pipeline{agent "any"stages{stage('basic'){
+steps{
+git branch: 'master', credentialsId: 'juser', url: 'bitbucket.com/xyz.git'
+ sh 'sf' 
+ library 'shared_1' 
+}}stage('execute script'){
+steps{
+ library 'shared_1' 
+ echo 'hello' 
+}}}}

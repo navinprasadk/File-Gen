@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import {
-  Segment,
-  Icon,
-  Form
-} from "semantic-ui-react";
+import { Segment, Icon, Form } from "semantic-ui-react";
 // import data from "./../Config/data.js";
 import "./WorkFlowEditor.css";
 
@@ -34,15 +30,28 @@ export default class WorkFlowEditor extends Component {
               style={{ width: "80%", marginTop: "0%" }}
             >
               <Form.Field>
-                 <span style={{display: "flex", justifyContent: "flex-start"}}>
-                        <label style={{paddingTop:'2%', fontSize:'110%', fontWeight:'500', width:'80%'}}> Stage Name</label>
-                <input
-                  placeholder="Stage Name"
-                  defaultValue={this.props.stageName}
-                  onChange={e => {
-                    this.props.handlestageNameChange(e, this.props.stageNumber);
-                  }}
-                />
+                <span style={{ display: "flex", justifyContent: "flex-start" }}>
+                  <label
+                    style={{
+                      paddingTop: "2%",
+                      fontSize: "110%",
+                      fontWeight: "500",
+                      width: "80%"
+                    }}
+                  >
+                    {" "}
+                    Stage Name <span style={{ color: "#d81717" }}>*</span>
+                  </label>
+                  <input
+                    placeholder="Stage Name"
+                    defaultValue={this.props.stageName}
+                    onChange={e => {
+                      this.props.handlestageNameChange(
+                        e,
+                        this.props.stageNumber
+                      );
+                    }}
+                  />
                 </span>
               </Form.Field>
             </Form>

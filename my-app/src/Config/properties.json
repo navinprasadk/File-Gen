@@ -1,45 +1,42 @@
- {  
-    "agent": {
-      "name": ""
-      },
-    "workspace": {
-      "path": ""
-        },
-    "git_clone": {
-      "URL": "",
-      "Branch": "master",
-      "Credentials": ""
-    },
-    "build_job": {
-      "jobname": ""
-    },
-    "docker": {
-      "image": "",
-      "label": "",
-      "args": ""
-    },
-    "junit": {
-      "a": ""
-    },
-    "email": {
-      "To": "",
-      "From": "",
-      "Subject": "",
-      "Body": ""
-    },
-    "slack": {
-      "Space name": "",
-      "Credentials": "",
-      "Token ID": ""
-    },
-    "execute_shell": {
-      "command": ""
-    },
-    "execute_batch": {
-      "command": ""
-    },
-    "execute_powershell": {
-      "command": ""
-    }      
-  }
+{  
+   "git_clone":{  
+      "URL":"",
+      "Branch":"master",
+      "Credentials":""
+   },
+   "execute_shell":{  
+      "command":""
+   },
+   "execute_batch":{  
+      "command":""
+   },
+   "execute_powershell":{  
+      "command":""
+   },
+   "build_job":{  
+      "jobname":""
+   },
+   "email":{  
+      "to":"",
+      "cc":"",
+      "bcc":"",
+      "from":"",
+      "subject":"",
+      "body":""
+   },
+   "present_directory": {
 
+   },
+   "load_library":{  
+      "library":""
+   },
+   "echo":{  
+      "expression":""
+   },
+   "delete_directory":{  
+
+   },
+   "archive_artifacts":{  
+      "source":""
+   }
+}

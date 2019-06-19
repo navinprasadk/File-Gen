@@ -1,1 +1,1 @@
-{"pipeline":{"environment":{},"agent":"any","stages":[{"stageName":"sm","steps":{"git_clone":{"URL":"bitbucket/navin","Branch":"master","Credentials":""}}}]}}
+{"pipeline":{"environment":{},"agent":"any","stages":[{"stageName":"basic","steps":{"git_clone":{"URL":"bitbucket.com/xyz.git","Branch":"master","Credentials":"juser"},"execute_shell":{"command":"sf"},"load_library":{"library":"shared_1"}}},{"stageName":"execute script","steps":{"load_library":{"library":"shared_1"},"echo":{"expression":"hello"}}}]}}
