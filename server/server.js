@@ -33,18 +33,6 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 // logger
 // app.use(morgan("dev"));
 
-// setup REST routes
-app.get("/", function(req, res) {
-  console.log("inside logout");
-  console.log("req",req.body);
-        console.log("inside write data");
-        fs.writeFileSync('../phraseFreqs.json', JSON.stringify(req))
-        .then(status => {
-          console.log("success");
-          return status;
-        })
-  // res.redirect(`${serverConfig.clientUrl}`);
-});
 
 app.get("/fileRead", function(req, res) {
         console.log("inside read data");
@@ -78,10 +66,10 @@ app.use('/api/fileOperations', require(path.join(__dirname, './server/fileOperat
 if (process.env.NODE_ENV === "production") {
   console.log("-------------------------------------");
   // Serve any static files
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static(path.join(__dirname, "../my-app/build")));
   // Handle React routing, return all requests to React app
   app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+    res.sendFile(path.join(__dirname, "../my-app/build", "index.html"));
   });
 }
 
